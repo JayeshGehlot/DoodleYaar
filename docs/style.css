@@ -1,166 +1,198 @@
 /* -----------------------------------------
-   🎨 DoodleYaar - Full Style Sheet (Fixed)
+   🎨 DoodleYaar - Final Responsive CSS
    ----------------------------------------- */
 
 /* General Styles */
 body {
-    font-family: "Handlee", cursive;
-    font-weight: 400;
-    font-style: normal;
-    /* Prevent pull-to-refresh and overscroll */
-    overscroll-behavior: none;
+  font-family: "Handlee", cursive;
+  font-weight: 400;
+  font-style: normal;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
 }
 
-/* FIX: Make placeholders visible on mobile */
-input[type="text"],
+/* Fix placeholder font on all devices */
+input,
 input::placeholder,
 textarea::placeholder {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
 }
 
-/* Make sliders look good */
+/* Range sliders */
 input[type="range"] {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 8px;
-    background: #e2e8f0; /* bg-gray-300 */
-    border-radius: 9999px;
-    outline: none;
-    opacity: 0.7;
-    transition: opacity .2s;
-}
-input[type="range"]:hover {
-    opacity: 1;
+  -webkit-appearance: none;
+  width: 100%;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 9999px;
+  outline: none;
 }
 input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    background: #4f46e5; /* bg-indigo-600 */
-    border-radius: 50%;
-    cursor: pointer;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  background: #4f46e5;
+  border-radius: 50%;
+  cursor: pointer;
 }
 input[type="range"]::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    background: #4f46e5; /* bg-indigo-600 */
-    border-radius: 50%;
-    cursor: pointer;
+  width: 18px;
+  height: 18px;
+  background: #4f46e5;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
-/* Hide scrollbar but allow scrolling */
-.no-scrollbar::-webkit-scrollbar {
-    display: none;
-}
-.no-scrollbar {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-}
-
-/* Tool button animations */
+/* Tool buttons */
 .tool-btn {
-    transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 .tool-btn:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 .tool-btn:active {
-    transform: scale(0.95);
+  transform: scale(0.95);
+}
+
+/* Hide scrollbars */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Main app layout */
+#app-screen {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Canvas default */
+#drawing-canvas {
+  flex: 1;
+  background: white;
+  display: block;
+}
+
+/* Chat area defaults */
+#chat-panel {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  background: #f9fafb;
+  border-left: 1px solid #e5e7eb;
+}
+
+#chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+#chat-form {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: white;
+  border-top: 1px solid #e5e7eb;
+}
+
+#chat-input {
+  flex: 1;
+  min-width: 0;
 }
 
 /* -----------------------------------------
-   📱 Mobile Layout Fixes
+   📱 Mobile Fixes
    ----------------------------------------- */
 @media (max-width: 768px) {
-
-  /* Keep entire app within visible area */
   html, body {
     height: 100%;
     overflow: hidden;
   }
 
-  /* App layout stacks vertically */
+  /* Stack vertically */
   #app-screen {
-    flex-direction: column !important;
+    flex-direction: column;
     height: 100vh;
   }
 
-  /* Prevent canvas from being too tall */
+  /* Canvas resizes dynamically */
   #drawing-canvas {
     width: 100%;
-    max-height: 60vh; /* Leave space for chat area */
-    display: block;
-    background: white;
+    max-height: calc(100vh - 160px); /* leaves space for chat */
+    height: auto;
+    touch-action: none;
   }
 
-  /* Make chat panel visible and scrollable */
+  /* Chat stays visible */
   #chat-panel {
-    height: 40vh;
-    display: flex;
-    flex-direction: column;
+    width: 100%;
+    height: auto;
+    flex: 0 0 auto;
     background: #f9fafb;
-  }
-
-  /* Ensure chat messages scroll properly */
-  #chat-messages {
-    flex: 1;
-    overflow-y: auto;
-    padding-bottom: 4rem; /* avoid overlap with input */
-  }
-
-  /* Keep the chat input bar fixed & visible */
-  #chat-form {
-    position: sticky;
-    bottom: 0;
-    background: white;
-    padding: 0.5rem;
     border-top: 1px solid #e5e7eb;
-    display: flex;
-    gap: 0.5rem;
-    z-index: 10;
   }
 
-  /* Adjust chat input box for smaller screens */
+  #chat-messages {
+    max-height: 25vh;
+    overflow-y: auto;
+  }
+
+  #chat-form {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-top: 1px solid #e5e7eb;
+    padding: 0.75rem;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+  }
+
   #chat-input {
     flex: 1;
-    min-width: 0;
-  }
-
-  /* Make toolbar buttons smaller */
-  .tool-btn {
-    padding: 0.5rem;
-  }
-
-  /* Adjust tool sidebar */
-  #app-screen > div {
-    flex-shrink: 0;
-  }
-
-  /* Avoid keyboard overlap (safe area) */
-  #chat-form input,
-  #chat-form button {
+    height: 2.5rem;
     font-size: 1rem;
   }
 
-  /* Add padding for iOS safe area */
-  #chat-form {
-    padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
+  /* Ensure safe area handling on iPhones */
+  body {
+    padding-bottom: env(safe-area-inset-bottom);
   }
 
-  /* Disable horizontal scrollbars */
+  /* Prevent horizontal scroll */
   * {
-    max-width: 100vw;
     box-sizing: border-box;
+    max-width: 100vw;
   }
 }
 
 /* -----------------------------------------
-   🖥️ Desktop Adjustments (optional)
+   🖥️ Desktop Restore
    ----------------------------------------- */
 @media (min-width: 769px) {
   #app-screen {
     flex-direction: row;
+  }
+
+  #chat-panel {
+    position: static;
+    width: 320px;
+  }
+
+  #drawing-canvas {
+    height: 100vh;
   }
 }
