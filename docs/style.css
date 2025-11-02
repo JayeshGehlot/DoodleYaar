@@ -1,4 +1,8 @@
-/* Custom styles for a better look */
+/* -----------------------------------------
+   🎨 DoodleYaar - Full Style Sheet (Fixed)
+   ----------------------------------------- */
+
+/* General Styles */
 body {
     font-family: "Handlee", cursive;
     font-weight: 400;
@@ -13,7 +17,6 @@ input::placeholder,
 textarea::placeholder {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
 }
-
 
 /* Make sliders look good */
 input[type="range"] {
@@ -46,6 +49,7 @@ input[type="range"]::-moz-range-thumb {
     border-radius: 50%;
     cursor: pointer;
 }
+
 /* Hide scrollbar but allow scrolling */
 .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -54,7 +58,8 @@ input[type="range"]::-moz-range-thumb {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
-/* --- New styles for dynamic UI --- */
+
+/* Tool button animations */
 .tool-btn {
     transition: all 0.2s ease-in-out;
 }
@@ -63,4 +68,99 @@ input[type="range"]::-moz-range-thumb {
 }
 .tool-btn:active {
     transform: scale(0.95);
+}
+
+/* -----------------------------------------
+   📱 Mobile Layout Fixes
+   ----------------------------------------- */
+@media (max-width: 768px) {
+
+  /* Keep entire app within visible area */
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  /* App layout stacks vertically */
+  #app-screen {
+    flex-direction: column !important;
+    height: 100vh;
+  }
+
+  /* Prevent canvas from being too tall */
+  #drawing-canvas {
+    width: 100%;
+    max-height: 60vh; /* Leave space for chat area */
+    display: block;
+    background: white;
+  }
+
+  /* Make chat panel visible and scrollable */
+  #chat-panel {
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    background: #f9fafb;
+  }
+
+  /* Ensure chat messages scroll properly */
+  #chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 4rem; /* avoid overlap with input */
+  }
+
+  /* Keep the chat input bar fixed & visible */
+  #chat-form {
+    position: sticky;
+    bottom: 0;
+    background: white;
+    padding: 0.5rem;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    gap: 0.5rem;
+    z-index: 10;
+  }
+
+  /* Adjust chat input box for smaller screens */
+  #chat-input {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* Make toolbar buttons smaller */
+  .tool-btn {
+    padding: 0.5rem;
+  }
+
+  /* Adjust tool sidebar */
+  #app-screen > div {
+    flex-shrink: 0;
+  }
+
+  /* Avoid keyboard overlap (safe area) */
+  #chat-form input,
+  #chat-form button {
+    font-size: 1rem;
+  }
+
+  /* Add padding for iOS safe area */
+  #chat-form {
+    padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
+  }
+
+  /* Disable horizontal scrollbars */
+  * {
+    max-width: 100vw;
+    box-sizing: border-box;
+  }
+}
+
+/* -----------------------------------------
+   🖥️ Desktop Adjustments (optional)
+   ----------------------------------------- */
+@media (min-width: 769px) {
+  #app-screen {
+    flex-direction: row;
+  }
 }
