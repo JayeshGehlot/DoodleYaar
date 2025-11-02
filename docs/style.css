@@ -1,0 +1,66 @@
+/* Custom styles for a better look */
+body {
+    font-family: "Handlee", cursive;
+    font-weight: 400;
+    font-style: normal;
+    /* Prevent pull-to-refresh and overscroll */
+    overscroll-behavior: none;
+}
+
+/* FIX: Make placeholders visible on mobile */
+input[type="text"],
+input::placeholder,
+textarea::placeholder {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+}
+
+
+/* Make sliders look good */
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background: #e2e8f0; /* bg-gray-300 */
+    border-radius: 9999px;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity .2s;
+}
+input[type="range"]:hover {
+    opacity: 1;
+}
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #4f46e5; /* bg-indigo-600 */
+    border-radius: 50%;
+    cursor: pointer;
+}
+input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #4f46e5; /* bg-indigo-600 */
+    border-radius: 50%;
+    cursor: pointer;
+}
+/* Hide scrollbar but allow scrolling */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+/* --- New styles for dynamic UI --- */
+.tool-btn {
+    transition: all 0.2s ease-in-out;
+}
+.tool-btn:hover {
+    transform: scale(1.1);
+}
+.tool-btn:active {
+    transform: scale(0.95);
+}
